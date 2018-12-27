@@ -11,7 +11,6 @@ import {
 import { Home, Settings } from './screens';
 import * as Icons from './assets/icons';
 
-
 const routes = [{
   path: '/',
   title: 'Registro',

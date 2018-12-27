@@ -1,7 +1,9 @@
-import React from 'react';
-import { View, TextInput, Label, Button } from 'react-desktop/windows';
-import styled from 'styled-components';
-import RangeSelect from '../components/RangeSelect';
+import React from 'react'
+import { View, TextInput, Label, Button } from 'react-desktop/windows'
+import styled from 'styled-components'
+import RangeSelect from '../components/RangeSelect'
+import ApiService from '../services/ApiService'
+import Alert from 'sweetalert2/dist/sweetalert2.js'
 
 const TITLE = styled.h1`
   width: 100%;
@@ -66,8 +68,35 @@ class Home extends React.Component {
     this.setState({ minutes })
   }
 
-  submitTicket = () => {
-    console.log('state', this.state)
+  submitTicket = async () => {
+
+    const data = {
+      father: this.state.fatherName,
+      child: this.state.childName,
+      time: parseFloat(this.state.hours, 10) + parseFloat((this.state.minutes / 60), 10)
+    }
+    const result = await ApiService.printTicket(data)
+    
+    if (result.data.success) {
+      Alert({
+        title: 'Listo!',
+        text: 'Registro correcto',
+        type: 'success',
+        confirmButtonText: 'Realizar otro registro',
+        onClose: () => {
+          this.setState({ 
+            hours: '',
+            minutes: '',
+            fatherName: '',
+            childName: ''
+          })
+        }
+      })
+    }
+  }
+
+  closeModal = () => {
+    this.setState({ showAlert: false })
   }
 
   render() {
@@ -112,8 +141,8 @@ class Home extends React.Component {
           </DIV>
         </SECTION>
       </SECTION>
-    );
+    )
   }
 }
 
-export default Home;
+export default Home
