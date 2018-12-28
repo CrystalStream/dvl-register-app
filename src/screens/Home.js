@@ -71,7 +71,7 @@ class Home extends React.Component {
   submitTicket = async () => {
 
     const data = {
-      father: this.state.fatherName,
+      tutor: this.state.fatherName,
       child: this.state.childName,
       time: parseFloat(this.state.hours, 10) + parseFloat((this.state.minutes / 60), 10)
     }

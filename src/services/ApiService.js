@@ -1,9 +1,9 @@
 
 import Api from '../utils/api'
 
-export function printTicket({ father, child, time }) {
-  return Api.post('/print', { 
-    father,
+export function printTicket({ tutor, child, time }) {
+  return Api.post('/ticket', { 
+    tutor,
     child, 
     time 
   })
