@@ -12,9 +12,12 @@ let mainWindow;
 const createWindow = async () => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
+    titleBarStyle: 'hidden',
+    show: false,
     width: 800,
     height: 680,
     resizable: false,
+    maximizable: false,
     center: true
   });
 
@@ -24,8 +27,13 @@ const createWindow = async () => {
   // Open the DevTools.
   // if (isDevMode) {
   //   await installExtension(REACT_DEVELOPER_TOOLS);
-  //   mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
   // }
+
+  // Ready to show
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show() 
+  })
 
   // Emitted when the window is closed.
   mainWindow.on('closed', () => {

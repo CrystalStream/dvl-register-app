@@ -8,6 +8,8 @@ import {
   NavPaneItem,
 } from 'react-desktop/windows';
 
+import { remote } from 'electron'
+
 import { Home, Settings } from './screens';
 import * as Icons from './assets/icons';
 
@@ -25,13 +27,21 @@ class App extends Component {
     color: '#cc7f29',
   }
 
+  onCloseAppHandler = () => {
+    window.close()
+  }
+
+  onMinimizeAppHandler = () => {
+    remote.BrowserWindow.getFocusedWindow().minimize()
+  }
+
   render() {
     const { history: { replace }, location, theme, color } = this.props; // eslint-disable-line
 
     return (
       <Window theme={theme} color={color}>
-        <TitleBar title="My Windows Application" controls />
-        <NavPane openLength={200} push theme={theme} color={color}>
+        <TitleBar title="Divertilandia Care & Fun" controls onMinimizeClick={this.onMinimizeAppHandler} onCloseClick={this.onCloseAppHandler}/>
+        <NavPane openLength={150} theme={theme} color={color} defaultIsPaneExpanded={false}>
           {routes.map(route => (
             <NavPaneItem
               key={route.path}
