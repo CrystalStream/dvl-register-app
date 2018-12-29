@@ -1,5 +1,5 @@
 {
-  "name": "Divertilandia Care&Fun",
+  "name": "Divertilandia_Care_Fun",
   "productName": "DivertilandiaC&F",
   "version": "1.0.0",
   "description": "Divertilandia register app",
@@ -48,7 +48,7 @@
     "react": "15.4.1",
     "react-desktop": "0.2.17",
     "react-dom": "15.4.1",
-    "react-router-dom": "next",
+    "react-router-dom": "4.3.1",
     "styled-components": "1.4.2",
     "sweetalert2": "7.33.1"
   },
