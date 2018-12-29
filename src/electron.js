@@ -13,10 +13,11 @@ const createWindow = async () => {
     titleBarStyle: 'hidden',
     show: false,
     width: 800,
-    height: 680,
+    height: 720,
     resizable: false,
     maximizable: false,
-    center: true
+    center: true,
+    frame: false
   });
 
   // and load the index.html of the app.
@@ -24,8 +25,8 @@ const createWindow = async () => {
 
   // Open the DevTools.
   // if (isDevMode) {
-  //   await installExtension(REACT_DEVELOPER_TOOLS);
-  mainWindow.webContents.openDevTools();
+  //  await installExtension(REACT_DEVELOPER_TOOLS);
+  //  mainWindow.webContents.openDevTools();
   // }
 
   // Ready to show
@@ -51,9 +52,9 @@ app.on('ready', createWindow);
 app.on('window-all-closed', () => {
   // On OS X it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
+  // if (process.platform !== 'darwin') {
+  app.quit();
+  // }
 });
 
 app.on('activate', () => {
