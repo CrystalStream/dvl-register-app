@@ -61,28 +61,36 @@ class Home extends React.Component {
   }
 
   updateHours = (hours) => {
-    this.setState({ hours })
+    if (this.isNumber(hours)) {
+      this.setState({ hours })
+    }
   }
 
   updateMins = (minutes) => {
-    this.setState({ minutes })
+    if (this.isNumber(minutes)) {
+      this.setState({ minutes })
+    }
   }
 
   submitTicket = async () => {
 
-    const data = {
-      tutor: this.state.fatherName,
-      child: this.state.childName,
-      time: parseFloat(this.state.hours, 10) + parseFloat((this.state.minutes / 60), 10)
-    }
-    const result = await ApiService.printTicket(data)
+    // const min = this.state.minutes || 0
+    // const data = {
+    //   tutor: this.state.fatherName,
+    //   child: this.state.childName,
+    //   time: parseFloat(this.state.hours, 10) + parseFloat((min / 60), 10)
+    // }
+    // const result = await ApiService.printTicket(data)
     
-    if (result.data.success) {
+    // if (result.data.success) {
       Alert({
         title: 'Listo!',
         text: 'Registro correcto',
         type: 'success',
-        confirmButtonText: 'Realizar otro registro',
+        confirmButtonText: 'imprimir copia',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
         onClose: () => {
           this.setState({ 
             hours: '',
@@ -92,14 +100,25 @@ class Home extends React.Component {
           })
         }
       })
-    }
+    // }
   }
 
   closeModal = () => {
     this.setState({ showAlert: false })
   }
 
+  isNumber(val) {
+    return val.length === 0 || /^\d+$/.test(val);
+  }
+
+  validateForm = () => {
+    return !!(this.state.fatherName.length && this.state.childName.length && this.state.hours) 
+  }
+
   render() {
+
+    const valid = this.validateForm()
+
     return (
       <SECTION>
         <SECTION>
@@ -135,7 +154,7 @@ class Home extends React.Component {
               />
           </DIV>
           <DIV>
-            <Button push onClick={this.submitTicket}>
+            <Button push onClick={this.submitTicket} disabled={!valid}>
               Imprimir ticket
             </Button>
           </DIV>

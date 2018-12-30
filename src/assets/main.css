@@ -1,0 +1,5 @@
+button:disabled,
+button[disabled] {
+  color: gray !important;
+  opacity: .3;
+}
