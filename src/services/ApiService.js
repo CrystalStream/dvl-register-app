@@ -1,7 +1,7 @@
 
 import Api from '../utils/api'
 
-export function printTicket({ tutor, child, time }) {
+export function saveTicket({ tutor, child, time }) {
   return Api.post('/ticket', { 
     tutor,
     child, 
@@ -9,6 +9,13 @@ export function printTicket({ tutor, child, time }) {
   })
 }
 
+export function rePrintTicket(ticket) {
+  return Api.post('/ticket/print', ticket)
+}
+
+
+
 export default {
-  printTicket
+  saveTicket,
+  rePrintTicket
 }

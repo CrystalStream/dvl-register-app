@@ -54,7 +54,7 @@ const INPUT = styled.input`
 class Home extends React.Component {
 
   state = {
-    hours: '',
+    hours: '0',
     minutes: '',
     fatherName: '',
     childName: ''
@@ -74,16 +74,16 @@ class Home extends React.Component {
 
   submitTicket = async () => {
 
-    // const min = this.state.minutes || 0
-    // const data = {
-    //   tutor: this.state.fatherName,
-    //   child: this.state.childName,
-    //   time: parseFloat(this.state.hours, 10) + parseFloat((min / 60), 10)
-    // }
-    // const result = await ApiService.printTicket(data)
+    const min = this.state.minutes || 0
+    const data = {
+      tutor: this.state.fatherName,
+      child: this.state.childName,
+      time: parseFloat(this.state.hours, 10) + parseFloat((min / 60), 10)
+    }
+    const result = await ApiService.saveTicket(data)
     
-    // if (result.data.success) {
-      Alert({
+    if (result.data.success) {
+      Alert.queue([{
         title: 'Listo!',
         text: 'Registro correcto',
         type: 'success',
@@ -91,6 +91,17 @@ class Home extends React.Component {
         allowOutsideClick: false,
         allowEscapeKey: false,
         allowEnterKey: false,
+        showLoaderOnConfirm: true,
+        preConfirm: () => {
+          return ApiService.rePrintTicket(result.data.ticket)
+            .then(data => Alert.insertQueueStep('Listo!'))
+            .catch(() => {
+              Alert.insertQueueStep({
+                type: 'error',
+                title: 'Upps! Hubo un error con la impresora!'
+              })
+            })
+        },
         onClose: () => {
           this.setState({ 
             hours: '',
@@ -99,8 +110,8 @@ class Home extends React.Component {
             childName: ''
           })
         }
-      })
-    // }
+      }])
+    }
   }
 
   closeModal = () => {
