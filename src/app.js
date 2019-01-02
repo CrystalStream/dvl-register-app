@@ -20,6 +20,14 @@ const routes = [{
   component: Home,
 }];
 
+const style = {
+  mainContainer: {
+    overflow: 'scroll',
+    width: '100%',
+    height: '100vh',
+    paddingBottom: '20px'
+  }
+}
 
 class App extends Component {
   static defaultProps = {
@@ -57,7 +65,9 @@ class App extends Component {
               padding="10px 20px"
               push
             >
-              <Route exact={route.exact} path={route.path} component={route.component} />
+              <div style={style.mainContainer}>
+                <Route exact={route.exact} path={route.path} component={route.component} />
+              </div>
             </NavPaneItem>
           ))}
         </NavPane>
