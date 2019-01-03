@@ -81,6 +81,8 @@ class Home extends React.Component {
       time: parseFloat(this.state.hours, 10) + parseFloat((min / 60), 10)
     }
     const result = await ApiService.saveTicket(data)
+
+    console.log('result', result)
     
     if (result.data.success) {
       Alert.queue([{
